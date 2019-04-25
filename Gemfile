@@ -29,6 +29,8 @@ gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 
 gem 'devise', '~> 4.2'
 
+gem 'rb-readline', '~> 0.5.3'
+
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
