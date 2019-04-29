@@ -5,7 +5,10 @@ Rails.application.routes.draw do
     member do
       patch :complete
     end
-  end    
+  end  
+  
+  resources :purchases
+  
   root "items#index"
   
 end

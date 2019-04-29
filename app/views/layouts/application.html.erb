@@ -26,7 +26,8 @@
           <% end %>    
         </ul>
         <% if user_signed_in? %>
-          <%= link_to "Create Item", new_item_path, class: "navbar-text navbar-link" %>
+          <%= link_to "Todo", new_item_path, class: "navbar-text navbar-link" %>
+          <%= link_to "Need", new_purchase_path, class: "navbar-text navbar-link" %>
         <% end %>  
 
       </div>
