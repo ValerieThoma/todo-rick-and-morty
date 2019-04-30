@@ -17,9 +17,9 @@ class PurchasesController < ApplicationController
   end
 
   def create
-    @purchase =  current_user.purchases.build(item_params)
+    @purchase =  current_user.purchases.build(purchase_params)
     if @purchase.save
-      redirect_to root_path
+      redirect_to purchases_path
     else
       render 'new'
     end
@@ -35,12 +35,12 @@ class PurchasesController < ApplicationController
 
   def destroy
     @purchase.destroy
-    redirect_to root_path
+    redirect_to purchase_path
   end
 
   def complete 
     @purchase.update_attribute(:completed_at, Time.now)
-    redirect_to root_path
+    redirect_to purchase_path
   end
 
 

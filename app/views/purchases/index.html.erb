@@ -1,1 +1,63 @@
-<h1>HI</h1>
+<!-- Checks to see if a user is signed in, if one is, it will list its checklist. -->
+<!-- If not, it will render the landing page that asks the user to sign up or login. -->
+<% if user_signed_in? %>
+	<div class="col-md-10 col-md-offset-1">
+		<% @purchases.each do |purchase| %> 
+			<div class="index-wrapper">
+				
+				<% if purchase.completed? %>
+<!-- For Completed Items-->
+					<div class="row item">
+
+						<div class="col-md-2">
+							<p><%= link_to complete_purchase_path(item), method: :patch do %></p>
+								<i class="fa fa-check fa-lg"></i>
+							<% end %>
+						</div>
+			
+						<div class="col-md-2">
+							<p><%= link_to purchase, method: :delete, data: { confirm: "Are you sure?" } do %></p>
+								<i class="fa fa-trash fa-lg"></i>
+							<% end %>
+						</div>
+
+						<div class="col-md-8">
+							<h2 style="opacity: 0.5;" class="item-title"><strike><%= link_to purchase.title, purchase %></strike></h2>
+							<p style="opacity: 0.5;" class="item-sub-title item-desc"><%= purchase.description %></p>
+							<p style="opacity: 0.5;" class="time-created-at item-sub-title">Completed <%= time_ago_in_words(purchase.completed_at) %> ago</p>
+						</div>
+							
+					</div>
+
+				<% else %>
+<!-- For Items NOT Completed -->
+
+					<div class="row item">
+
+						<div class="col-md-2">
+							<p><%= link_to complete_purchase_path(purchase), method: :patch do %></p>
+								<i class="fa fa-check fa-lg"></i>
+							<% end %>
+						</div>
+
+						<div class="col-md-8">
+							<h2 class="item-title"><%= link_to purchase.title, purchase %></h2>
+							<p class="item-sub-title item-desc"><%= purchase.description %></p>
+							<p style="opacity: 0.5;" class="time-created-at item-sub-title">Created <%= time_ago_in_words(purchase.created_at) %> ago</p>
+						</div>
+						
+						<div class="col-md-2">
+							<p><%= link_to purchase, method: :delete, data: { confirm: "Are you sure?" } do %></p>
+								<i class="fa fa-trash fa-lg"></i>
+							<% end %>
+						</div>
+					</div>
+
+				<% end %>
+			</div>
+		<% end %>	
+	</div>
+
+<% else %>
+	<%= render 'welcome_page' %>
+<% end %>	
