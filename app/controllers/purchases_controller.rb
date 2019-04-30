@@ -1,5 +1,5 @@
 class PurchasesController < ApplicationController
- before_action :find_purchase, only: [:show, :edit, :update, :destroy, :complete]
+ before_action :find_purchase, only: [:show, :edit, :update, :destroy ]
 
   def index
     if user_signed_in?
@@ -35,12 +35,13 @@ class PurchasesController < ApplicationController
 
   def destroy
     @purchase.destroy
-    redirect_to purchase_path
+    redirect_to purchases_path
   end
 
   def complete 
+    @purchase = Purchase.find(params[:id])
     @purchase.update_attribute(:completed_at, Time.now)
-    redirect_to purchase_path
+    redirect_to purchases_path
   end
 
 
