@@ -1,12 +1,10 @@
 class PurchasesController < ApplicationController
- before_action :find_purchase, only: [:show, :edit, :update, :destroy]
+ before_action :find_purchase, only: [:show, :edit, :update, :destroy, :complete]
 
   def index
-    # if user_signed_in?
-    #   @purchases = Purchase.where(:user_id => current_user.id).order("created_at DESC")
-    # end  
-    @purchase = Purchase.new
-      redirect new_purchase_path
+    if user_signed_in?
+      @purchases = Purchase.where(:user_id => current_user.id).order("created_at DESC")
+    end    
   end
 
   def show 
@@ -14,7 +12,7 @@ class PurchasesController < ApplicationController
 
 
   def new 
-    # @purchase = current_user.purchases.build
+    @purchase = current_user.purchases.build
     @purchase = Purchase.new
   end
 
@@ -25,6 +23,24 @@ class PurchasesController < ApplicationController
     else
       render 'new'
     end
+  end
+
+   def update
+    if @purchase.update(purchase_params)
+      redirect_to purchase_path(@purchase)
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @purchase.destroy
+    redirect_to root_path
+  end
+
+  def complete 
+    @purchase.update_attribute(:completed_at, Time.now)
+    redirect_to root_path
   end
 
 
