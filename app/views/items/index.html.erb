@@ -57,7 +57,7 @@
 			</div>
 		<% end %>	
 	</div>
-<% if user_signed_in? %>
+
 	<div class="col-md-4 col-md-offset-1">
 		<% @purchases.each do |purchase| %> 
 			<div class="index-wrapper">
@@ -114,7 +114,7 @@
 			</div>
 		<% end %>	
 	</div>
-<% end %>
+
 <% else %>
 	<%= render 'welcome_page' %>
 <% end %>	
