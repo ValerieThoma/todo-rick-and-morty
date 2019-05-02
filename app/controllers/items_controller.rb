@@ -47,6 +47,12 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
+  def uncomplete
+    @item = Item.find(params[:id])
+    @item.update_attribute(:completed_at, nil)
+    redirect to root_path
+  end
+
   private 
 
   def item_params
